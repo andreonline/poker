@@ -1,0 +1,29 @@
+/* 
+    Created on : 31/01/2015, 14:19:02
+    Author     : mixplick
+*/
+
+.conteudo{
+    
+    margin: 0 auto;
+}
+
+#id-card{
+    background-color: #0059bc;
+    height: 300px;
+    border-radius: 20px;
+}
+#id-info{
+    margin-top: 15%;
+}
+#id-info p{    
+    float: left;
+    font-size: 1.2rem;
+    margin-left: 5%;
+    color: #aeaeae;
+}
+#id-info span{
+    font-style: italic;
+    font-size: 1.0rem;
+    color: #009688 !important;
+}
