@@ -16,7 +16,7 @@ use Exception;
 
 ini_set('max_execution_time', 600);
 
-class conexao extends \PDO {
+class conexao {
 
    #atributos / objetos para conexão
     var $host = "50.63.158.62";
@@ -155,7 +155,7 @@ class conexao extends \PDO {
     }
 
     function insert() {
-        $query = "INSERT INTO {$this->tabela} ({$this->campos}) VALUES ({$this->valores})";
+        $query = "INSERT INTO $this->tabela ($this->campos) VALUES ($this->valores)";
         return $this->sql_query($query);
     }
 

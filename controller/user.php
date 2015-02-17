@@ -32,22 +32,21 @@ class user {
         $this->user->setNome(filter_input(INPUT_POST, 'nome'));
         $this->user->setEmail(filter_input(INPUT_POST, 'email'));
         $this->user->setTeam(filter_input(INPUT_POST, 'team'));
-        $this->user->setTelefone(filter_input(INPUT_POST, 'telefone'));
+        $this->user->setTelefone(filter_input(INPUT_POST, 'cel'));
         $this->user->setLogin(filter_input(INPUT_POST, 'login'));
         $this->user->setSenha(md5(filter_input(INPUT_POST, 'senha')));
 
 
 
-        $this->conn->tabela = user;
-        $this->conn->campos = "nome, email, team, telefone, login, senha";
-        $this->conn->valores = " 
-			'" . $this->user->getNome() . "', 
-			'" . $this->user->getEmail() . "',
-			'" . $this->user->getTeam() . "',
-			'" . $this->user->getTelefone() . "',
-			'" . $this->user->getLogin() . "', 
-			 " . $this->user->getSenha() . "
-		";
+        $this->conn->tabela = "user";
+        $this->conn->campos = "name, email, team, celphone, login, pass";
+        $this->conn->valores = ""
+                . "'" . $this->user->getNome() . "',"
+                . "'" . $this->user->getEmail() . "',"
+                . "'" . $this->user->getTeam() . "',"
+                . "'" . $this->user->getTelefone() . "',"
+                . "'" . $this->user->getLogin() . "',"
+                . "'" . $this->user->getSenha() . "'";
 
         $this->conn->insert();
     }
