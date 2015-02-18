@@ -13,7 +13,7 @@
 namespace controller;
 
 use lib\conexao as conexao;
-use model\user as User_Model;
+use model\user as game_model;
 
 session_start();
 
@@ -23,31 +23,30 @@ class user {
     private $conn;
 
     function __construct() {
-        $this->user = new User_Model();
+        $this->user = new game_model();
         $this->conn = new conexao();
         $this->conn->conecta();
     }
 
     public function actionCadastrar() {
-        $this->user->setNome(filter_input(INPUT_POST, 'nome'));
+        $this->user->setNome(utf8_decode(filter_input(INPUT_POST, 'nome')));
         $this->user->setEmail(filter_input(INPUT_POST, 'email'));
         $this->user->setTeam(filter_input(INPUT_POST, 'team'));
-        $this->user->setTelefone(filter_input(INPUT_POST, 'telefone'));
-        $this->user->setLogin(filter_input(INPUT_POST, 'login'));
+        $this->user->setTelefone(filter_input(INPUT_POST, 'cel'));
+        $this->user->setLogin(utf8_decode(filter_input(INPUT_POST, 'login')));
         $this->user->setSenha(md5(filter_input(INPUT_POST, 'senha')));
 
 
 
-        $this->conn->tabela = user;
-        $this->conn->campos = "nome, email, team, telefone, login, senha";
-        $this->conn->valores = " 
-			'" . $this->user->getNome() . "', 
-			'" . $this->user->getEmail() . "',
-			'" . $this->user->getTeam() . "',
-			'" . $this->user->getTelefone() . "',
-			'" . $this->user->getLogin() . "', 
-			 " . $this->user->getSenha() . "
-		";
+        $this->conn->tabela = "user";
+        $this->conn->campos = "name, email, team, celphone, login, pass";
+        $this->conn->valores = ""
+                . "'" . $this->user->getNome() . "',"
+                . "'" . $this->user->getEmail() . "',"
+                . "'" . $this->user->getTeam() . "',"
+                . "'" . $this->user->getTelefone() . "',"
+                . "'" . $this->user->getLogin() . "',"
+                . "'" . $this->user->getSenha() . "'";
 
         $this->conn->insert();
     }
@@ -59,7 +58,7 @@ class user {
         $this->user->setEndereco($_POST['endereco']);
         $this->user->setTelefone($_POST['telefone']);
 
-        $this->tabela = TB_CLIENTE;
+        $this->conn->tabela = "user";
         $this->campos = "
 			nome  = '" . $this->user->getNome() . "', 
 			email = '" . $this->user->getEmail() . "',
@@ -72,10 +71,9 @@ class user {
     }
 
     public function actionListar() {
-        $this->tabela = TB_CLIENTE;
-        $this->data = "cadastro";
-        $this->campos = "nome, email, endereco, telefone";
-        $this->asc = "nome";
+        $this->conn->tabela = "user";
+        $this->conn->campos = "iduser, name, email, team, celphone";
+        $this->asc = "name";
         $this->limit = 20;
 
         $this->select();
@@ -83,12 +81,12 @@ class user {
     }
 
     public function actionBusca() {
-        $this->tabela = TB_CLIENTE;
-        $this->campos = "*";
-        $this->asc = "email";
-        $this->where = "nome";
-        $this->like = $_POST['busca'];
-        $this->limit = 20;
+        $this->conn->tabela = "user";
+        $this->conn->campos = "*";
+        $this->conn->asc = "email";
+        $this->conn->where = "nome";
+        $this->conn->like = $_POST['busca'];
+        $this->conn->limit = 20;
 
         $this->select();
         $this->total();

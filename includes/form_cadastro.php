@@ -3,23 +3,23 @@
         var dados = $(form).serialize();
         $.ajax({
             type: "POST",
-            url: "processa_ncliente.php",
-            data: dados,
-            success: function (dados) {
-                if (dados == "I") {
-                    alert('Cadastro efetuado com sucesso!');
-//                    window.location = "<?= $pagina ?>";
-                } else {
-                    $("#contentee").html('');
-                    $("#contentee").append(dados);
-                }
-            },
-            beforeSend: function () {
-                $('.loading').fadeIn('fast');
-            },
-            complete: function () {
-                $('.loading').fadeOut('fast');
-            }
+            url: "processa_user.php",
+            data: dados
+//            success: function (dados) {
+//                if (dados == "I") {
+//                    alert('Cadastro efetuado com sucesso!');
+////                    window.location = "<?= $pagina ?>";
+//                } else {
+//                    $("#contentee").html('');
+//                    $("#contentee").append(dados);
+//                }
+//            },
+//            beforeSend: function () {
+//                $('.loading').fadeIn('fast');
+//            },
+//            complete: function () {
+//                $('.loading').fadeOut('fast');
+//            }
 
         });
     }
